@@ -1,0 +1,19 @@
+# Acción compuesta reutilizada por todos los jobs: evita repetir
+# la preparación del entorno en cada uno.
+name: Preparar entorno
+description: Instala pnpm, Node.js y las dependencias del proyecto.
+runs:
+  using: composite
+  steps:
+    - name: Instalar pnpm
+      uses: pnpm/action-setup@v4
+      with:
+        version: 11
+    - name: Instalar Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: 24
+        cache: pnpm
+    - name: Instalar dependencias
+      shell: bash
+      run: pnpm install --frozen-lockfile
