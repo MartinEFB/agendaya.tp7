@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#183a36">
+  <meta name="description" content="AgendaYA: una demostración académica para organizar la disponibilidad y reservar un turno ficticio.">
+  <title>AgendaYA — Tu tiempo, bien organizado</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/styles.css">
+  <script type="module" src="/js/app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main-content" data-cy="skip-content">Ir al contenido</a>
+  <div class="site-wrap">
+    <header class="site-header">
+      <a href="#reservar" class="brand" data-cy="brand-home" aria-label="AgendaYA, inicio">
+        <span class="brand-mark" aria-hidden="true">a<span>·</span></span>
+        <span>Agenda<span class="brand-ya">YA</span></span>
+      </a>
+      <nav class="main-nav" aria-label="Vistas de la demostración">
+        <button type="button" class="nav-button active" data-cy="nav-booking" aria-current="page">Reservar turno</button>
+        <button type="button" class="nav-button" data-cy="nav-availability">Disponibilidad</button>
+      </nav>
+      <span class="demo-badge"><span class="status-dot"></span> Demo académica <span class="desktop-only">/ TP06</span></span>
+    </header>
+
+    <main id="main-content" tabindex="-1">
+      <div id="startup-error" class="error-banner" data-cy="startup-error" role="alert" hidden></div>
+      <section id="booking-view" aria-labelledby="booking-heading">
+        <div class="page-intro">
+          <div>
+            <p class="eyebrow"><span class="tiny-line"></span> UN MOMENTO PARA LO QUE IMPORTA</p>
+            <h1 id="booking-heading">Tu próximo paso,<br><em>en agenda.</em></h1>
+            <p class="intro-copy">Elige un horario. Nosotros guardamos el espacio.</p>
+          </div>
+          <p class="intro-note">Sin registros.<br>Sin idas y vueltas.</p>
+        </div>
+        <div class="booking-layout">
+          <aside class="professional-card" aria-label="Profesional y servicio">
+            <div class="portrait-composition" aria-hidden="true">
+              <span class="portrait-ring ring-one"></span><span class="portrait-ring ring-two"></span>
+              <span class="portrait-monogram">lm<span>✳</span></span>
+              <span class="portrait-caption">IDEAS QUE ENCUENTRAN SU MOMENTO</span>
+            </div>
+            <div class="professional-info">
+              <p class="eyebrow small">TU ESPACIO DE CONSULTA</p>
+              <h2 id="profile-name" data-cy="profile-name">Lucía Méndez</h2>
+              <p class="professional-role" id="profile-role">Consultoría profesional</p>
+              <p class="professional-description" id="profile-description">Un espacio para ordenar tus ideas, conversar sobre tus objetivos y dar forma a tu próximo paso.</p>
+              <div class="service-details">
+                <h3 id="event-name">Prestaciones disponibles</h3>
+                <p><span aria-hidden="true">◷</span> <span id="event-duration">2 servicios de 30 minutos</span></p>
+                <p><span aria-hidden="true">▣</span> Encuentro virtual</p>
+                <p><span aria-hidden="true">◎</span> Buenos Aires · UTC−03:00</p>
+              </div>
+              <div class="mock-note"><span aria-hidden="true">ⓘ</span><p>Profesional y servicio de ejemplo.<br>Usa solo datos ficticios. No son turnos reales.</p></div>
+            </div>
+          </aside>
+
+          <div class="booking-workspace" id="booking-workspace" aria-busy="true">
+            <div class="booking-progress" aria-label="Progreso de la reserva" id="booking-progress">
+              <span class="progress-step current"><b>1</b> Fecha y hora</span><span class="progress-rule"></span>
+              <span class="progress-step"><b>2</b> Tus datos</span><span class="progress-rule"></span>
+              <span class="progress-step"><b>3</b> Confirmación</span>
+            </div>
+            <div id="booking-content"><div class="loading-state" role="status">Preparando tu agenda…</div></div>
+            <div class="booking-assurance"><span aria-hidden="true">↳</span> Reserva sin crear una cuenta. Simple, como debería ser.</div>
+          </div>
+        </div>
+      </section>
+
+      <section id="admin-view" aria-labelledby="admin-heading" hidden>
+        <div class="page-intro admin-intro">
+          <div>
+            <p class="eyebrow"><span class="tiny-line"></span> ESPACIO DE ADMINISTRACIÓN · SIMULADO</p>
+            <h1 id="admin-heading">Dale lugar<br><em>a tu tiempo.</em></h1>
+            <p class="intro-copy">Organiza tus horarios y protege los días que necesitas.</p>
+          </div>
+          <div class="admin-identity"><span class="small-avatar">LM</span><div><strong>Lucía Méndez</strong><span>Perfil de demostración</span></div></div>
+        </div>
+        <div class="admin-context"><span class="status-dot"></span><p>Los cambios se reflejan en la vista <strong>Reservar turno</strong> y se conservan al reiniciar la demo.</p></div>
+        <div id="admin-content"><div class="loading-state" role="status">Cargando disponibilidad…</div></div>
+      </section>
+    </main>
+
+    <footer class="site-footer"><span>AgendaYA <span class="footer-separator">/</span> Tu tiempo, bien organizado.</span><span>Ingeniería y Calidad de Software <span class="footer-separator">·</span> Grupo 01</span></footer>
+  </div>
+  <div id="toast" class="toast" role="status" aria-live="polite" aria-atomic="true" data-cy="feedback-toast" hidden></div>
+  <dialog id="conflict-dialog" class="conflict-dialog" aria-labelledby="conflict-title" aria-describedby="conflict-description" data-cy="conflict-modal">
+    <button class="icon-button dialog-close" type="button" aria-label="Cerrar aviso" data-cy="close-conflict-modal">×</button>
+    <span class="dialog-symbol" aria-hidden="true">!</span>
+    <p class="eyebrow small">HAY TURNOS CONFIRMADOS</p>
+    <h2 id="conflict-title">Este día ya tiene planes.</h2>
+    <p id="conflict-description"></p>
+    <p class="dialog-note">La configuración anterior se mantiene. La gestión de cancelaciones no forma parte de esta demostración.</p>
+    <button type="button" class="button primary full-width" data-cy="acknowledge-conflict">Entendido</button>
+  </dialog>
+</body>
+</html>

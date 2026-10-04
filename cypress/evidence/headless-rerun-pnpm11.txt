@@ -1,0 +1,71 @@
+$ cypress run --browser electron
+
+
+====================================================================================================
+
+  (Run Starting)
+
+  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ Cypress:        16.1.0                                                                         │
+  │ Browser:        Electron 146 (headless) (deprecated)                                           │
+  │ Node Version:   v24.20.0 (C:\Program Files\nodejs\node.exe)                                    │
+  │ Specs:          1 found (tp6.cy.js)                                                            │
+  │ Searched:       cypress/e2e/**/*.cy.js                                                         │
+  └────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+Warning: The Electron browser is deprecated as a test browser and will be removed in a future version of Cypress.
+
+Switch to Chrome or another installed browser to avoid a breaking change when you upgrade.
+
+Read more about supported browsers: https://on.cypress.io/launching-browsers
+
+
+────────────────────────────────────────────────────────────────────────────────────────────────────
+
+  Running:  tp6.cy.js                                                                       (1 of 1)
+
+
+  TP6 AgendaYA browser journeys
+    √ proposed member 1: saves three independent working ranges (1317ms)
+    √ proposed member 2: rejects invalid hours and applies booking quick settings (1724ms)
+    √ proposed member 3: blocks one day and removes it from public availability (728ms)
+    √ proposed member 4: validates and applies an inclusive date-range block (1509ms)
+    √ proposed member 5: selects a service, obtains a hold, and releases it (650ms)
+    √ proposed member 6: prevents double holds and frees the slot after fifteen minutes (812ms)
+    √ proposed member 7: validates guest data and confirms with a simulated notice (1329ms)
+    √ proposed member 8: warns on booking conflict and reassigns a schedule exception (2012ms)
+
+
+  8 passing (10s)
+
+
+  (Results)
+
+  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ Tests:        8                                                                                │
+  │ Passing:      8                                                                                │
+  │ Failing:      0                                                                                │
+  │ Pending:      0                                                                                │
+  │ Skipped:      0                                                                                │
+  │ Screenshots:  0                                                                                │
+  │ Video:        true                                                                             │
+  │ Duration:     10 seconds                                                                       │
+  │ Spec Ran:     tp6.cy.js                                                                        │
+  └────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+
+  (Video)
+
+  -  Video output: C:\Users\alejo\Documents\Facu\2026\Ingenieria y calidad de software\Práctica\TP6\TP6-PROYECTO-FRONTEND-MINIBACKEND\cypress\videos\tp6.cy.js (3).mp4
+
+
+====================================================================================================
+
+  (Run Finished)
+
+
+       Spec                                              Tests  Passing  Failing  Pending  Skipped
+  ┌────────────────────────────────────────────────────────────────────────────────────────────────┐
+  │ ✔  tp6.cy.js                                00:10        8        8        -        -        - │
+  └────────────────────────────────────────────────────────────────────────────────────────────────┘
+    ✔  All specs passed!                        00:10        8        8        -        -        -

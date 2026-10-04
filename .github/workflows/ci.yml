@@ -1,0 +1,88 @@
+# Pipeline de integración continua de AgendaYA (TP Nº7).
+# Cada verificación es un job independiente: se ejecutan en paralelo y cada una
+# aparece como un check propio en el Pull Request.
+name: CI
+
+on:
+  # PR hacia las ramas de integración y producción (requisito 6 del TP).
+  pull_request:
+    branches: [develop, main]
+  # Rama de hotfix definida en el plan (6.2.2): feedback en cada push.
+  push:
+    branches: ['hotfix/**']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# Si llega un push nuevo a la misma rama, se cancela la ejecución anterior.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  format:
+    name: Formato
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup
+      - name: Verificar formato (Prettier)
+        run: pnpm run format:check
+
+  lint:
+    name: Linter
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup
+      - name: Analizar código (ESLint)
+        run: pnpm run lint
+
+  unit-tests:
+    name: Tests unitarios
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup
+      - name: Ejecutar tests unitarios y de integración
+        run: pnpm test
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup
+      - name: Verificar sintaxis y arranque de la aplicación
+        run: pnpm run build
+
+  e2e:
+    name: E2E Cypress
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup
+      - name: Recuperar caché del binario de Cypress
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/Cypress
+          key: cypress-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+      - name: Instalar binario de Cypress
+        run: pnpm exec cypress install
+      - name: Ejecutar tests E2E (Electron headless)
+        run: pnpm run test:e2e
+      - name: Guardar videos y capturas como evidencia
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cypress-evidencia
+          path: |
+            cypress/videos
+            cypress/screenshots
+          if-no-files-found: ignore
