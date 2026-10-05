@@ -62,8 +62,8 @@ export function updateQuickSettings(state, settings) {
 export function scheduledSlots(state, date, now, eventId = DEMO_EVENT.id) {
   const event = eventFor(eventId);
   if (!isValidDate(date) || date < localDate(now)) return [];
-  //Comentado para simular incidente de soporte
-  //if (state.blockedDays.some((blocked) => blocked.date === date)) return [];
+  //Solución al incidente reportado
+  if (state.blockedDays.some((blocked) => blocked.date === date)) return [];
   if (state.blockedRanges?.some((blocked) => blocked.startDate <= date && date <= blocked.endDate)) return [];
   const day = state.weeklyHours[dayKey(date)];
   if (!day.enabled) return [];
